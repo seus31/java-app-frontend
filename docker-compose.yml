@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "${EXPOSE_APP_PORT}:3000"
+    volumes:
+      - .:/app
+      - java-app-frontend-node-modules:/app/node_modules
+    command: sh -c "pnpm dev -o"
+    networks:
+      - java-app-frontend-network
+
+networks:
+  java-app-frontend-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.35.6.0/24
+
+volumes:
+  java-app-frontend-node-modules:
